@@ -1,3 +1,11 @@
+/**
+ * @author Edouard DUPIN
+ * 
+ * @copyright 2014, Edouard DUPIN, all right reserved
+ * 
+ * @license APACHE-2 (see license file)
+ */
+
 /* stack grows up from the bottom and heap grows down from the top of heap space */
 #include "interpreter.h"
 

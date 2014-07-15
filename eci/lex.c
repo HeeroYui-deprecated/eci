@@ -1,3 +1,11 @@
+/**
+ * @author Edouard DUPIN
+ * 
+ * @copyright 2014, Edouard DUPIN, all right reserved
+ * 
+ * @license APACHE-2 (see license file)
+ */
+
 #include "interpreter.h"
 
 #ifdef NO_CTYPE
@@ -50,15 +58,11 @@ static struct ReservedWord ReservedWords[] = {
 	{ "default", TokenDefault, NULL },
 	{ "delete", TokenDelete, NULL },
 	{ "do", TokenDo, NULL },
-#ifndef NO_FP
 	{ "double", TokenDoubleType, NULL },
-#endif
 	{ "else", TokenElse, NULL },
 	{ "enum", TokenEnumType, NULL },
 	{ "extern", TokenExternType, NULL },
-#ifndef NO_FP
 	{ "float", TokenFloatType, NULL },
-#endif
 	{ "for", TokenFor, NULL },
 	{ "goto", TokenGoto, NULL },
 	{ "if", TokenIf, NULL },
@@ -122,10 +126,8 @@ enum LexToken LexGetNumber(struct LexState *Lexer, struct Value *Value) {
 	int Result = 0;
 	int Base = 10;
 	enum LexToken ResultToken;
-#ifndef NO_FP
 	double FPResult;
 	double FPDiv;
-#endif
 	if (*Lexer->Pos == '0') {
 		/* a binary, octal or hex literal */
 		LEXER_INC(Lexer);
@@ -163,7 +165,6 @@ enum LexToken LexGetNumber(struct LexState *Lexer, struct Value *Value) {
 		LEXER_INC(Lexer);
 		return ResultToken;
 	}
-#ifndef NO_FP
 	if (    Lexer->Pos == Lexer->End
 	     || *Lexer->Pos != '.') {
 		return ResultToken;
@@ -190,9 +191,6 @@ enum LexToken LexGetNumber(struct LexState *Lexer, struct Value *Value) {
 	}
 	Value->Val->FP = FPResult;
 	return TokenFPConstant;
-#else
-	return ResultToken;
-#endif
 }
 
 /* get a reserved word or identifier - used while scanning */
@@ -724,11 +722,9 @@ enum LexToken LexGetRawToken(struct ParseState *Parser, struct Value **Value, in
 				case TokenCharacterConstant:
 					LexValue.Typ = &CharType;
 					break;
-#ifndef NO_FP
 				case TokenFPConstant:
 					LexValue.Typ = &FPType;
 					break;
-#endif
 				default:
 					break;
 			}

@@ -1,3 +1,11 @@
+/**
+ * @author Edouard DUPIN
+ * 
+ * @copyright 2014, Edouard DUPIN, all right reserved
+ * 
+ * @license APACHE-2 (see license file)
+ */
+
 #include "picoc.h"
 #include "interpreter.h"
 
@@ -180,11 +188,9 @@ void PlatformVPrintf(const char *Format, va_list Args) {
 				case 't':
 					PrintType(va_arg(Args, struct ValueType *), CStdOut);
 					break;
-#ifndef NO_FP
 				case 'f':
 					PrintFP(va_arg(Args, double), CStdOut);
 					break;
-#endif
 				case '%':
 					PrintCh('%', CStdOut);
 					break;

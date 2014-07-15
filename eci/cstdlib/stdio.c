@@ -1,3 +1,11 @@
+/**
+ * @author Edouard DUPIN
+ * 
+ * @copyright 2014, Edouard DUPIN, all right reserved
+ * 
+ * @license APACHE-2 (see license file)
+ */
+
 /* stdio.h library for large systems - small embedded systems use clibrary.c instead */
 #include <errno.h>
 #include "../interpreter.h"
@@ -174,7 +182,6 @@ int StdioBasePrintf(struct ParseState *Parser, FILE *Stream, char *StrOut, int S
 						ShowType = &IntType;
 						break;
 						/* integer base conversions */
-#ifndef NO_FP
 					case 'e':
 					case 'E':
 						ShowType = &FPType;
@@ -190,7 +197,6 @@ int StdioBasePrintf(struct ParseState *Parser, FILE *Stream, char *StrOut, int S
 						ShowType = &FPType;
 						break;
 						/* double, flexible format */
-#endif
 					case 'a':
 					case 'A':
 						ShowType = &IntType;
@@ -268,18 +274,14 @@ int StdioBasePrintf(struct ParseState *Parser, FILE *Stream, char *StrOut, int S
 						} else {
 							StdioOutPuts("XXX", &SOStream);
 						}
-					}
-#ifndef NO_FP
-					else if (ShowType == &FPType) {
+					} else if (ShowType == &FPType) {
 						/* show a floating point number */
 						if (IS_NUMERIC_COERCIBLE(ThisArg)) {
 							StdioFprintfFP(&SOStream, OneFormatBuf, ExpressionCoerceFP(ThisArg));
 						} else {
 							StdioOutPuts("XXX", &SOStream);
 						}
-					}
-#endif
-					else if (ShowType == CharPtrType) {
+					} else if (ShowType == CharPtrType) {
 						if (ThisArg->Typ->Base == TypePointer) {
 							StdioFprintfPointer(&SOStream, OneFormatBuf, ThisArg->Val->Pointer);
 						} else if (    ThisArg->Typ->Base == TypeArray

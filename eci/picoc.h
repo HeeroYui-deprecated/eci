@@ -1,8 +1,16 @@
-#ifndef PICOC_H
-#define PICOC_H
+/**
+ * @author Edouard DUPIN
+ * 
+ * @copyright 2014, Edouard DUPIN, all right reserved
+ * 
+ * @license APACHE-2 (see license file)
+ */
 
-/* picoc version number */
-#define PICOC_VERSION "v2.1"
+#ifndef __ECI_H__
+#define __ECI_H__
+
+/* eci version number */
+#define ECI_VERSION "v0.1"
 
 /* handy definitions */
 #ifndef TRUE
@@ -34,4 +42,4 @@ extern int PicocExitValue;
 /* include.c */
 void PicocIncludeAllSystemHeaders();
 
-#endif /* PICOC_H */
+#endif

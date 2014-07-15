@@ -1,3 +1,11 @@
+/**
+ * @author Edouard DUPIN
+ * 
+ * @copyright 2014, Edouard DUPIN, all right reserved
+ * 
+ * @license APACHE-2 (see license file)
+ */
+
 #include "picoc.h"
 #include "interpreter.h"
 
@@ -742,7 +750,7 @@ void PicocParse(const char *FileName, const char *Source, int SourceLen, int Run
 void PicocParseInteractive() {
 	struct ParseState Parser;
 	enum ParseResult Ok;
-	PlatformPrintf(INTERACTIVE_PROMPT_START);
+	PlatformPrintf("Starting eci " ECI_VERSION "\n");
 	LexInitParser(&Parser, NULL, NULL, StrEmpty, TRUE);
 	PicocPlatformSetExitPoint();
 	LexInteractiveClear(&Parser);

@@ -1,3 +1,11 @@
+/**
+ * @author Edouard DUPIN
+ * 
+ * @copyright 2014, Edouard DUPIN, all right reserved
+ * 
+ * @license APACHE-2 (see license file)
+ */
+
 /* string.h library for large systems - small embedded systems use clibrary.c instead */
 #include <time.h>
 #include "../interpreter.h"
@@ -26,11 +34,9 @@ void StdCtime(struct ParseState *Parser, struct Value *ReturnValue, struct Value
 	ReturnValue->Val->Pointer = ctime(Param[0]->Val->Pointer);
 }
 
-#ifndef NO_FP
 void StdDifftime(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
 	ReturnValue->Val->FP = difftime((time_t)Param[0]->Val->Integer, Param[1]->Val->Integer);
 }
-#endif
 
 void StdGmtime(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
 	ReturnValue->Val->Pointer = gmtime(Param[0]->Val->Pointer);
@@ -76,9 +82,7 @@ struct LibraryFunction StdTimeFunctions[] = {
 	{ StdAsctime,       "char *asctime(struct tm *);" },
 	{ StdClock,         "time_t clock();" },
 	{ StdCtime,         "char *ctime(int *);" },
-#ifndef NO_FP
 	{ StdDifftime,      "double difftime(int, int);" },
-#endif
 	{ StdGmtime,        "struct tm *gmtime(int *);" },
 	{ StdGmtime_r,      "struct tm *gmtime_r(int *, struct tm *);" },
 	{ StdLocaltime,     "struct tm *localtime(int *);" },

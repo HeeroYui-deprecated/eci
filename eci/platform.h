@@ -1,6 +1,13 @@
-/* all platform-specific includes and defines go in this file */
-#ifndef PLATFORM_H
-#define PLATFORM_H
+/**
+ * @author Edouard DUPIN
+ * 
+ * @copyright 2014, Edouard DUPIN, all right reserved
+ * 
+ * @license APACHE-2 (see license file)
+ */
+
+#ifndef __ECI_PLATFORM_H__
+#define __ECI_PLATFORM_H__
 
 #define LARGE_INT_POWER_OF_TEN 1000000000   /* the largest power of ten which fits in an int on this architecture */
 #define ALIGN_TYPE void *                   /* the default data type to use for alignment */
@@ -13,8 +20,7 @@
 #define LOCAL_TABLE_SIZE 11                 /* size of local variable table (can expand) */
 #define STRUCT_TABLE_SIZE 11                /* size of struct/union member table (can expand) */
 
-#define INTERACTIVE_PROMPT_START "starting picoc " PICOC_VERSION "\n"
-#define INTERACTIVE_PROMPT_STATEMENT "picoc> "
+#define INTERACTIVE_PROMPT_STATEMENT "eci> "
 #define INTERACTIVE_PROMPT_LINE "     > "
 
 /* host platform includes */
@@ -28,16 +34,9 @@
 #include <unistd.h>
 #include <stdarg.h>
 #include <setjmp.h>
-#ifndef NO_FP
-#	include <math.h>
-#	define PICOC_MATH_LIBRARY
-/*#	define USE_READLINE*/
-#	undef BIG_ENDIAN
-#	if defined(__powerpc__) || defined(__hppa__) || defined(__sparc__)
-#		define BIG_ENDIAN
-#	endif
-#endif
+#include <math.h>
 
 extern jmp_buf ExitBuf;
 
-#endif /* PLATFORM_H */
+
+#endif

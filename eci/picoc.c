@@ -1,3 +1,11 @@
+/**
+ * @author Edouard DUPIN
+ * 
+ * @copyright 2014, Edouard DUPIN, all right reserved
+ * 
+ * @license APACHE-2 (see license file)
+ */
+
 /* include only picoc.h here - should be able to use it with only the external interfaces, no internals from interpreter.h */
 #include "picoc.h"
 

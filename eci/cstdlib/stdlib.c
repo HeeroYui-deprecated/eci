@@ -1,3 +1,11 @@
+/**
+ * @author Edouard DUPIN
+ * 
+ * @copyright 2014, Edouard DUPIN, all right reserved
+ * 
+ * @license APACHE-2 (see license file)
+ */
+
 /* stdlib.h library for large systems - small embedded systems use clibrary.c instead */
 #include "../interpreter.h"
 
@@ -5,11 +13,9 @@
 
 static int ZeroValue = 0;
 
-#ifndef NO_FP
 void StdlibAtof(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
 	ReturnValue->Val->FP = atof(Param[0]->Val->Pointer);
 }
-#endif
 
 void StdlibAtoi(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
 	ReturnValue->Val->Integer = atoi(Param[0]->Val->Pointer);
@@ -19,11 +25,9 @@ void StdlibAtol(struct ParseState *Parser, struct Value *ReturnValue, struct Val
 	ReturnValue->Val->Integer = atol(Param[0]->Val->Pointer);
 }
 
-#ifndef NO_FP
 void StdlibStrtod(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
 	ReturnValue->Val->FP = strtod(Param[0]->Val->Pointer, Param[1]->Val->Pointer);
 }
-#endif
 
 void StdlibStrtol(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
 	ReturnValue->Val->Integer = strtol(Param[0]->Val->Pointer, Param[1]->Val->Pointer, Param[2]->Val->Integer);
@@ -84,10 +88,8 @@ void StdlibLabs(struct ParseState *Parser, struct Value *ReturnValue, struct Val
 /* all stdlib.h functions */
 struct LibraryFunction StdlibFunctions[] =
 {
-#ifndef NO_FP
 	{ StdlibAtof,           "float atof(char *);" },
 	{ StdlibStrtod,         "float strtod(char *,char **);" },
-#endif
 	{ StdlibAtoi,           "int atoi(char *);" },
 	{ StdlibAtol,           "int atol(char *);" },
 	{ StdlibStrtol,         "int strtol(char *,char **,int);" },
@@ -115,4 +117,4 @@ void StdlibSetupFunc() {
 	}
 }
 
-#endif /* !BUILTIN_MINI_STDLIB */
+#endif

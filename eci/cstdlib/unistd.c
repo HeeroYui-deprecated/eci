@@ -1,3 +1,11 @@
+/**
+ * @author Edouard DUPIN
+ * 
+ * @copyright 2014, Edouard DUPIN, all right reserved
+ * 
+ * @license APACHE-2 (see license file)
+ */
+
 /* stdlib.h library for large systems - small embedded systems use clibrary.c instead */
 #include <stdio.h>
 #include <unistd.h>
