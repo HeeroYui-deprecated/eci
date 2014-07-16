@@ -22,8 +22,8 @@ static int LittleEndian = 0;
 /* global initialisation for libraries */
 void LibraryInit() {
 	/* define the version number macro */
-	VersionString = TableStrRegister(PICOC_VERSION);
-	VariableDefinePlatformVar(NULL, "PICOC_VERSION", CharPtrType, (union AnyValue *)&VersionString, FALSE);
+	VersionString = TableStrRegister(ECI_VERSION);
+	VariableDefinePlatformVar(NULL, "ECI_VERSION", CharPtrType, (union AnyValue *)&VersionString, FALSE);
 	/* define endian-ness macros */
 	BigEndian = ((*(char*)&__ENDIAN_CHECK__) == 0);
 	LittleEndian = ((*(char*)&__ENDIAN_CHECK__) == 1);
@@ -32,7 +32,7 @@ void LibraryInit() {
 }
 
 /* add a library */
-void LibraryAdd(struct Table *GlobalTable, const char *LibraryName, struct LibraryFunction *FuncList) {
+void LibraryAdd(struct Table *_globalTable, const char *_libraryName, struct LibraryFunction *_funcList) {
 	struct ParseState Parser;
 	int Count;
 	char *Identifier;
@@ -41,83 +41,83 @@ void LibraryAdd(struct Table *GlobalTable, const char *LibraryName, struct Libra
 	void *Tokens;
 	const char *IntrinsicName = TableStrRegister("c library");
 	/* read all the library definitions */
-	for (Count = 0; FuncList[Count].Prototype != NULL; Count++) {
-		Tokens = LexAnalyse(IntrinsicName, FuncList[Count].Prototype, strlen((char *)FuncList[Count].Prototype), NULL);
-		LexInitParser(&Parser, FuncList[Count].Prototype, Tokens, IntrinsicName, TRUE);
+	for (Count = 0; _funcList[Count].Prototype != NULL; Count++) {
+		Tokens = LexAnalyse(IntrinsicName, _funcList[Count].Prototype, strlen((char *)_funcList[Count].Prototype), NULL);
+		LexInitParser(&Parser, _funcList[Count].Prototype, Tokens, IntrinsicName, TRUE);
 		TypeParse(&Parser, &ReturnType, &Identifier, NULL);
 		NewValue = ParseFunctionDefinition(&Parser, ReturnType, Identifier);
-		NewValue->Val->FuncDef.Intrinsic = FuncList[Count].Func;
+		NewValue->Val->FuncDef.Intrinsic = _funcList[Count].Func;
 		HeapFreeMem(Tokens);
 	}
 }
 
 /* print a type to a stream without using printf/sprintf */
-void PrintType(struct ValueType *Typ, IOFILE *Stream) {
-	switch (Typ->Base) {
+void PrintType(struct ValueType* _type, IOFILE *_stream) {
+	switch (_type->Base) {
 		case TypeVoid:
-			PrintStr("void", Stream);
+			PrintStr("void", _stream);
 			break;
 		case TypeInt:
-			PrintStr("int", Stream);
+			PrintStr("int", _stream);
 			break;
 		case TypeShort:
-			PrintStr("short", Stream);
+			PrintStr("short", _stream);
 			break;
 		case TypeChar:
-			PrintStr("char", Stream);
+			PrintStr("char", _stream);
 			break;
 		case TypeLong:
-			PrintStr("long", Stream);
+			PrintStr("long", _stream);
 			break;
 		case TypeUnsignedInt:
-			PrintStr("unsigned int", Stream);
+			PrintStr("unsigned int", _stream);
 			break;
 		case TypeUnsignedShort:
-			PrintStr("unsigned short", Stream);
+			PrintStr("unsigned short", _stream);
 			break;
 		case TypeUnsignedLong:
-			PrintStr("unsigned long", Stream);
+			PrintStr("unsigned long", _stream);
 			break;
 		case TypeFP:
-			PrintStr("double", Stream);
+			PrintStr("double", _stream);
 			break;
 		case TypeFunction:
-			PrintStr("function", Stream);
+			PrintStr("function", _stream);
 			break;
 		case TypeMacro:
-			PrintStr("macro", Stream);
+			PrintStr("macro", _stream);
 			break;
 		case TypePointer:
-			if (Typ->FromType) {
-				PrintType(Typ->FromType, Stream);
+			if (_type->FromType) {
+				PrintType(_type->FromType, _stream);
 			}
-			PrintCh('*', Stream);
+			PrintCh('*', _stream);
 			break;
 		case TypeArray:
-			PrintType(Typ->FromType, Stream);
-			PrintCh('[', Stream);
-			if (Typ->ArraySize != 0) {
-				PrintSimpleInt(Typ->ArraySize, Stream);
+			PrintType(_type->FromType, _stream);
+			PrintCh('[', _stream);
+			if (_type->ArraySize != 0) {
+				PrintSimpleInt(_type->ArraySize, _stream);
 			}
-			PrintCh(']', Stream);
+			PrintCh(']', _stream);
 			break;
 		case TypeStruct:
-			PrintStr("struct ", Stream);
-			PrintStr(Typ->Identifier, Stream);
+			PrintStr("struct ", _stream);
+			PrintStr(_type->Identifier, _stream);
 			break;
 		case TypeUnion:
-			PrintStr("union ", Stream);
-			PrintStr(Typ->Identifier, Stream);
+			PrintStr("union ", _stream);
+			PrintStr(_type->Identifier, _stream);
 			break;
 		case TypeEnum:
-			PrintStr("enum ", Stream);
-			PrintStr(Typ->Identifier, Stream);
+			PrintStr("enum ", _stream);
+			PrintStr(_type->Identifier, _stream);
 			break;
 		case TypeGotoLabel:
-			PrintStr("goto label ", Stream);
+			PrintStr("goto label ", _stream);
 			break;
 		case Type_Type:
-			PrintStr("type ", Stream);
+			PrintStr("type ", _stream);
 			break;
 	}
 }

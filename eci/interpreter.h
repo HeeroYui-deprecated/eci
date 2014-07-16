@@ -336,18 +336,18 @@ extern IOFILE *CStdOut;
  * void PicocCleanup();
  * void PicocPlatformScanFile(const char *FileName);
  * extern int PicocExitValue; */
-void ProgramFail(struct ParseState *Parser, const char *Message, ...);
-void AssignFail(struct ParseState *Parser, const char *Format, struct ValueType *Type1, struct ValueType *Type2, int Num1, int Num2, const char *FuncName, int ParamNo);
-void LexFail(struct LexState *Lexer, const char *Message, ...);
+void ProgramFail(struct ParseState *_parser, const char *_message, ...);
+void AssignFail(struct ParseState *_parser, const char *_mormat, struct ValueType *_type1, struct ValueType *_type2, int _num1, int _num2, const char *_funcName, int _paramNo);
+void LexFail(struct LexState *_lexer, const char *_message, ...);
 void PlatformCleanup();
-char *PlatformGetLine(char *Buf, int MaxLen, const char *Prompt);
+char *PlatformGetLine(char *_buf, int _maxLen, const char *_prompt);
 int PlatformGetCharacter();
-void PlatformPutc(unsigned char OutCh, union OutputStreamInfo *);
-void PlatformErrorPrefix(struct ParseState *Parser);
-void PlatformPrintf(const char *Format, ...);
-void PlatformVPrintf(const char *Format, va_list Args);
-void PlatformExit(int ExitVal);
-char *PlatformMakeTempName(char *TempNameBuffer);
+void PlatformPutc(unsigned char _outCh, union OutputStreamInfo *);
+void PlatformErrorPrefix(struct ParseState *_parser);
+void PlatformPrintf(const char *_format, ...);
+void PlatformVPrintf(const char *_format, va_list _args);
+void PlatformExit(int _exitVal);
+char *PlatformMakeTempName(char *_tempNameBuffer);
 void PlatformLibraryInit();
 
 

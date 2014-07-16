@@ -28,14 +28,14 @@ extern jmp_buf PicocExitBuf;
 #define PicocPlatformSetExitPoint() setjmp(PicocExitBuf)
 
 /* parse.c */
-void PicocParse(const char *FileName, const char *Source, int SourceLen, int RunIt, int CleanupNow, int CleanupSource);
+void PicocParse(const char *_fileName, const char *_source, int _sourceLen, int _runIt, int _cleanupNow, int _cleanupSource);
 void PicocParseInteractive();
 
 /* platform.c */
-void PicocCallMain(int argc, char **argv);
-void PicocInitialise(int StackSize);
+void PicocCallMain(int _argc, char **_argv);
+void PicocInitialise(int _stackSize);
 void PicocCleanup();
-void PicocPlatformScanFile(const char *FileName);
+void PicocPlatformScanFile(const char *_fileName);
 
 extern int PicocExitValue;
 

@@ -13,108 +13,108 @@
 
 static int ZeroValue = 0;
 
-void StringStrcpy(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Pointer = strcpy(Param[0]->Val->Pointer, Param[1]->Val->Pointer);
+void StringStrcpy(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Pointer = strcpy(_param[0]->Val->Pointer, _param[1]->Val->Pointer);
 }
 
-void StringStrncpy(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Pointer = strncpy(Param[0]->Val->Pointer, Param[1]->Val->Pointer, Param[2]->Val->Integer);
+void StringStrncpy(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Pointer = strncpy(_param[0]->Val->Pointer, _param[1]->Val->Pointer, _param[2]->Val->Integer);
 }
 
-void StringStrcmp(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Integer = strcmp(Param[0]->Val->Pointer, Param[1]->Val->Pointer);
+void StringStrcmp(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Integer = strcmp(_param[0]->Val->Pointer, _param[1]->Val->Pointer);
 }
 
-void StringStrncmp(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Integer = strncmp(Param[0]->Val->Pointer, Param[1]->Val->Pointer, Param[2]->Val->Integer);
+void StringStrncmp(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Integer = strncmp(_param[0]->Val->Pointer, _param[1]->Val->Pointer, _param[2]->Val->Integer);
 }
 
-void StringStrcat(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Pointer = strcat(Param[0]->Val->Pointer, Param[1]->Val->Pointer);
+void StringStrcat(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Pointer = strcat(_param[0]->Val->Pointer, _param[1]->Val->Pointer);
 }
 
-void StringStrncat(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Pointer = strncat(Param[0]->Val->Pointer, Param[1]->Val->Pointer, Param[2]->Val->Integer);
+void StringStrncat(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Pointer = strncat(_param[0]->Val->Pointer, _param[1]->Val->Pointer, _param[2]->Val->Integer);
 }
 
-void StringIndex(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Pointer = index(Param[0]->Val->Pointer, Param[1]->Val->Integer);
+void StringIndex(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Pointer = index(_param[0]->Val->Pointer, _param[1]->Val->Integer);
 }
 
-void StringRindex(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Pointer = rindex(Param[0]->Val->Pointer, Param[1]->Val->Integer);
+void StringRindex(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Pointer = rindex(_param[0]->Val->Pointer, _param[1]->Val->Integer);
 }
 
-void StringStrlen(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Integer = strlen(Param[0]->Val->Pointer);
+void StringStrlen(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Integer = strlen(_param[0]->Val->Pointer);
 }
 
-void StringMemset(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Pointer = memset(Param[0]->Val->Pointer, Param[1]->Val->Integer, Param[2]->Val->Integer);
+void StringMemset(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Pointer = memset(_param[0]->Val->Pointer, _param[1]->Val->Integer, _param[2]->Val->Integer);
 }
 
-void StringMemcpy(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Pointer = memcpy(Param[0]->Val->Pointer, Param[1]->Val->Pointer, Param[2]->Val->Integer);
+void StringMemcpy(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Pointer = memcpy(_param[0]->Val->Pointer, _param[1]->Val->Pointer, _param[2]->Val->Integer);
 }
 
-void StringMemcmp(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Integer = memcmp(Param[0]->Val->Pointer, Param[1]->Val->Pointer, Param[2]->Val->Integer);
+void StringMemcmp(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Integer = memcmp(_param[0]->Val->Pointer, _param[1]->Val->Pointer, _param[2]->Val->Integer);
 }
 
-void StringMemmove(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Pointer = memmove(Param[0]->Val->Pointer, Param[1]->Val->Pointer, Param[2]->Val->Integer);
+void StringMemmove(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Pointer = memmove(_param[0]->Val->Pointer, _param[1]->Val->Pointer, _param[2]->Val->Integer);
 }
 
-void StringMemchr(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Pointer = memchr(Param[0]->Val->Pointer, Param[1]->Val->Integer, Param[2]->Val->Integer);
+void StringMemchr(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Pointer = memchr(_param[0]->Val->Pointer, _param[1]->Val->Integer, _param[2]->Val->Integer);
 }
 
-void StringStrchr(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Pointer = strchr(Param[0]->Val->Pointer, Param[1]->Val->Integer);
+void StringStrchr(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Pointer = strchr(_param[0]->Val->Pointer, _param[1]->Val->Integer);
 }
 
-void StringStrrchr(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Pointer = strrchr(Param[0]->Val->Pointer, Param[1]->Val->Integer);
+void StringStrrchr(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Pointer = strrchr(_param[0]->Val->Pointer, _param[1]->Val->Integer);
 }
 
-void StringStrcoll(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Integer = strcoll(Param[0]->Val->Pointer, Param[1]->Val->Pointer);
+void StringStrcoll(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Integer = strcoll(_param[0]->Val->Pointer, _param[1]->Val->Pointer);
 }
 
-void StringStrerror(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Pointer = strerror(Param[0]->Val->Integer);
+void StringStrerror(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Pointer = strerror(_param[0]->Val->Integer);
 }
 
-void StringStrspn(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Integer = strspn(Param[0]->Val->Pointer, Param[1]->Val->Pointer);
+void StringStrspn(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Integer = strspn(_param[0]->Val->Pointer, _param[1]->Val->Pointer);
 }
 
-void StringStrcspn(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Integer = strcspn(Param[0]->Val->Pointer, Param[1]->Val->Pointer);
+void StringStrcspn(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Integer = strcspn(_param[0]->Val->Pointer, _param[1]->Val->Pointer);
 }
 
-void StringStrpbrk(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Pointer = strpbrk(Param[0]->Val->Pointer, Param[1]->Val->Pointer);
+void StringStrpbrk(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Pointer = strpbrk(_param[0]->Val->Pointer, _param[1]->Val->Pointer);
 }
 
-void StringStrstr(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Pointer = strstr(Param[0]->Val->Pointer, Param[1]->Val->Pointer);
+void StringStrstr(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Pointer = strstr(_param[0]->Val->Pointer, _param[1]->Val->Pointer);
 }
 
-void StringStrtok(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Pointer = strtok(Param[0]->Val->Pointer, Param[1]->Val->Pointer);
+void StringStrtok(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Pointer = strtok(_param[0]->Val->Pointer, _param[1]->Val->Pointer);
 }
 
-void StringStrxfrm(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Integer = strxfrm(Param[0]->Val->Pointer, Param[1]->Val->Pointer, Param[2]->Val->Integer);
+void StringStrxfrm(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Integer = strxfrm(_param[0]->Val->Pointer, _param[1]->Val->Pointer, _param[2]->Val->Integer);
 }
 
-void StringStrdup(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Pointer = strdup(Param[0]->Val->Pointer);
+void StringStrdup(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Pointer = strdup(_param[0]->Val->Pointer);
 }
 
-void StringStrtok_r(struct ParseState *Parser, struct Value *ReturnValue, struct Value **Param, int NumArgs) {
-	ReturnValue->Val->Pointer = strtok_r(Param[0]->Val->Pointer, Param[1]->Val->Pointer, Param[2]->Val->Pointer);
+void StringStrtok_r(struct ParseState *_parser, struct Value *_returnValue, struct Value **_param, int _numArgs) {
+	_returnValue->Val->Pointer = strtok_r(_param[0]->Val->Pointer, _param[1]->Val->Pointer, _param[2]->Val->Pointer);
 }
 
 /* all string.h functions */
