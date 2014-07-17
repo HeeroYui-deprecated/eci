@@ -6,11 +6,7 @@
  * @license APACHE-2 (see license file)
  */
 
-#ifndef __ECI_STD_BOOL_H__
-#define __ECI_STD_BOOL_H__
-
-
-extern const char StdboolDefs[];
-void StdboolSetupFunc();
+#ifndef __ECI_H__
+#define __ECI_H__
 
 #endif
