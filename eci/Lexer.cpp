@@ -18,25 +18,27 @@ eci::Lexer::~Lexer() {
 }
 
 void eci::Lexer::append(int32_t _tokenId, const std::string& _regularExpression) {
-	try {
-		m_searchList.insert(std::make_pair(_tokenId, std::regex(_regularExpression, std::regex_constants::basic)));
-	} catch (std::regex_error e) {
-		ECI_ERROR("plop : " << e.what() << " from '" << _regularExpression << "'");
-	}
+	m_searchList.insert(std::make_pair(_tokenId, etk::RegExp<std::string>(_regularExpression)));
+	etk::RegExp<std::string>(_regularExpression).display();
 }
 
 eci::LexerResult eci::Lexer::interprete(const std::string& _data) {
 	eci::LexerResult result;
-		ECI_INFO("Parse : \n" << _data);
+	ECI_INFO("Parse : \n" << _data);
 	for (auto &it : m_searchList) {
-		ECI_INFO("Parse RegEx : " << it.first);// << " : '" << it.second.str() << "'");
+		ECI_INFO("Parse RegEx : " << it.first << " : " << it.second.getRegExDecorated());
+		if (it.second.parse(_data, 0, _data.size()) == true) {
+			ECI_INFO("    match [" << it.second.start() << ".." << it.second.stop() << "] ");
+			ECI_INFO("        ==> '" << std::string(_data, it.second.start(), it.second.stop()) << "'");
+		}
+		/*
 		std::smatch m;
 		std::regex_search (_data, m, it.second);
 		for (unsigned i=0; i<m.size(); ++i) {
 			ECI_INFO("    match " << i << " (" << m[i] << ") ");
 			ECI_INFO("    @ " << m.position(i) );
 		}
-		
+		*/
 		
 		//std::regex_iterator it_search(_data.begin(), _data.end(), it.second);
 		//std::sregex_iterator it_end;

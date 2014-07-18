@@ -11,7 +11,7 @@
 
 #include <etk/types.h>
 #include <etk/stdTools.h>
-#include <regex>
+#include <etk/RegExp.h>
 #include <map>
 #include <vector>
 
@@ -21,7 +21,7 @@ namespace eci {
 	
 	class Lexer {
 		private:
-			std::map<int32_t, std::regex> m_searchList;
+			std::map<int32_t, etk::RegExp<std::string>> m_searchList;
 		public:
 			Lexer();
 			~Lexer();

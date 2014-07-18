@@ -17,7 +17,7 @@ enum cppTokenList {
 
 eci::ParserCpp::ParserCpp() {
 	m_lexer.append(tokenCppMultilineComment, "/\\*.*\\*/");
-	m_lexer.append(tokenCppSingleLineComment, "//$");
+	m_lexer.append(tokenCppSingleLineComment, "//.*$");
 	m_lexer.append(tokenCppString, "[a-z]");
 }
 
