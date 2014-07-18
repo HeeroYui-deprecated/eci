@@ -18,7 +18,7 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 	eci::ParserCpp tmpParser;
-	std::string data = etk::FSNodeReadAllData(argv[1]);
+	std::string data = "/* plop */ \n int main(void) {\n return 0;\n}\n";//etk::FSNodeReadAllData(argv[1]);
 	tmpParser.parse(data);
 	
 	return 0;
