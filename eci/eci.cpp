@@ -12,6 +12,8 @@
 #include <etk/os/FSNode.h>
 
 int main(int argc, char** argv) {
+	etk::log::setLevel(etk::log::logLevelDebug);
+	etk::log::setLevel(etk::log::logLevelInfo);
 	ECI_INFO("Start Application interpeter languages");
 	if (argc<=1) {
 		ECI_CRITICAL("need the file to parse");
@@ -19,6 +21,8 @@ int main(int argc, char** argv) {
 	}
 	eci::ParserCpp tmpParser;
 	std::string data = "/* plop */ \n int eee = 22; // error value \nint main(void) {\n return 0;\n}\n";//etk::FSNodeReadAllData(argv[1]);
+	//std::string data = "alpha /* plop */ test";
+	//std::string data = "pp \n // qdfqdfsdf \nde";
 	tmpParser.parse(data);
 	
 	return 0;
