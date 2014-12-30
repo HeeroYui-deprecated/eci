@@ -17,6 +17,15 @@ def create(target):
 		'eci/eci.cpp',
 		'eci/Lexer.cpp',
 		'eci/debug.cpp',
+		'eci/Class.cpp',
+		'eci/Enum.cpp',
+		'eci/File.cpp',
+		'eci/Function.cpp',
+		'eci/Interpreter.cpp',
+		'eci/Library.cpp',
+		'eci/Type.cpp',
+		'eci/Variable.cpp',
+		'eci/Value.cpp',
 		'eci/lang/ParserCpp.cpp'
 		])
 	myModule.add_export_path(tools.get_current_path(__file__))

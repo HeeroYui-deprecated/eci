@@ -12,8 +12,52 @@
 #include <eci/Lexer.h>
 
 namespace eci {
+	
+	enum cppTokenList {
+		tokenCppCommentMultiline,
+		tokenCppCommentSingleLine,
+		tokenCppPreProcessor,
+		tokenCppPreProcessorIf,
+		tokenCppPreProcessorElse,
+		tokenCppPreProcessorEndif,
+		tokenCppPreProcessorIfdef,
+		tokenCppPreProcessorIfndef,
+		tokenCppPreProcessorDefine,
+		tokenCppPreProcessorWarning,
+		tokenCppPreProcessorError,
+		tokenCppPreProcessorInclude,
+		tokenCppPreProcessorImport,
+		tokenCppPreProcessorSectionPthese,
+		
+		tokenCppStringDoubleQuote,
+		tokenCppStringSimpleQuote,
+		tokenCppBraceIn,
+		tokenCppBraceOut,
+		tokenCppPtheseIn,
+		tokenCppPtheseOut,
+		tokenCppHookIn,
+		tokenCppHookOut,
+		tokenCppSectionBrace,
+		tokenCppSectionPthese,
+		tokenCppSectionHook,
+		tokenCppBranch,
+		tokenCppSystem,
+		tokenCppType,
+		tokenCppVisibility,
+		tokenCppContener,
+		tokenCppTypeDef,
+		tokenCppAuto,
+		tokenCppNullptr,
+		tokenCppSystemDefine,
+		tokenCppNumericValue,
+		tokenCppBoolean,
+		tokenCppCondition,
+		tokenCppAssignation,
+		tokenCppString,
+		tokenCppSeparator,
+	};
 	class ParserCpp {
-		private:
+		public:
 			eci::Lexer m_lexer;
 			eci::LexerResult m_result;
 		public:
