@@ -29,6 +29,11 @@ namespace eci {
 			std::vector<eci::Variable> m_arguments; //!< return value.
 			
 			std::vector<std::shared_ptr<eci::Value>> call(const std::vector<std::shared_ptr<eci::Value>>& _input);
+			
+			// 3 step:
+			//    - first get Tockens (returns , names, const, parameters, codes
+			//    - interpreted all of this ... no link on variables
+			//    - all is linked
 	};
 }
 

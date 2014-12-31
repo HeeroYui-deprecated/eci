@@ -23,6 +23,9 @@ namespace eci {
 		protected:
 			std::string m_fileName; //!< Name of the file.
 			std::string m_fileData; //!< Data of the file.
+			std::vector<std::shared_ptr<eci::Function>> m_listFunction; // all function in the file
+			std::vector<std::shared_ptr<eci::Class>> m_listClass; // all class in the file
+			std::vector<std::shared_ptr<eci::Variable>> m_listVariable; // all variable in the file
 	};
 }
 

@@ -35,7 +35,7 @@ eci::ParserCpp::ParserCpp() {
 	m_lexer.append(tokenCppHookOut, "\\]");
 	m_lexer.append(tokenCppBranch, "\\b(return|goto|if|else|case|default|break|continue|while|do|for)\\b");
 	m_lexer.append(tokenCppSystem, "\\b(new|delete|try|catch)\\b");
-	m_lexer.append(tokenCppType, "\\b(bool|char(16_t|32_t)?|double|float|u?int(8|16|32|64|128)?(_t)?|long|short|signed|size_t|unsigned|void|(I|U)(8|16|32|64|128))\\b");
+	m_lexer.append(tokenCppType, "\\b(bool|char(16_t|32_t)?|double|float|u?int(8|16|32|64|128)?(_t)?|long|short|signed|size_t|unsigned|void)\\b");
 	m_lexer.append(tokenCppVisibility, "\\b(inline|const|virtual|private|public|protected|friend|const|extern|register|static|volatile)\\b");
 	m_lexer.append(tokenCppContener, "\\b(class|namespace|struct|union|enum)\\b");
 	m_lexer.append(tokenCppTypeDef, "\\btypedef\\b");
