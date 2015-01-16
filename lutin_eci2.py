@@ -26,7 +26,8 @@ def create(target):
 		'eci/Type.cpp',
 		'eci/Variable.cpp',
 		'eci/Value.cpp',
-		'eci/lang/ParserCpp.cpp'
+		'eci/lang/ParserCpp.cpp',
+		'eci/lang/ParserJS.cpp'
 		])
 	myModule.add_export_path(tools.get_current_path(__file__))
 	myModule.add_module_depend('etk')

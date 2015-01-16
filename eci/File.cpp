@@ -10,6 +10,7 @@
 #include <eci/debug.h>
 #include <etk/os/FSNode.h>
 #include <eci/lang/ParserCpp.h>
+#include <eci/lang/ParserJS.h>
 
 
 static std::string getValue(const std::string& _file, const std::shared_ptr<eci::LexerNode>& _it) {
@@ -60,64 +61,77 @@ eci::Variable getVariableWithType(const std::string& _value) {
 
 eci::File::File(const std::string& _filename) {
 	m_fileName = _filename;
-	m_fileData = etk::FSNodeReadAllData(_filename);
-	eci::ParserCpp tmpParser;
-	tmpParser.parse(m_fileData);
-	
-	// all we need all the time:
-	std::vector<eci::Variable> returnList;
-	std::vector<eci::Variable> argumentList;
-	std::string name;
-	std::string value;
-	std::shared_ptr<eci::Class> lastClass;
-	std::shared_ptr<eci::Function> lastFunction;
-	std::shared_ptr<eci::Variable> lastVariable;
-	enum eci::visibility lastVisibility = eci::visibilityPublic;
-	
-	for (auto &it : tmpParser.m_result.m_list) {
-		value = getValue(m_fileData, it);
-		switch (it->getTockenId()) {
-			case tokenCppVisibility:
-				ECI_INFO("get visibility : " << value << "'" );
-				if (value == "private") {
-					lastVisibility = eci::visibilityPrivate;
-				} else if (value == "public") {
-					lastVisibility = eci::visibilityPublic;
-				} else if (value == "protected") {
-					lastVisibility = eci::visibilityProtected;
-				//} else if (value == "inline") {
-					
-				//} else if (value == "const") {
-					
-				//} else if (value == "virtual") {
-					
-				//} else if (value == "friend") {
-					
-				//} else if (value == "extern") {
-					
-				//} else if (value == "register") {
-					
-				//} else if (value == "static") {
-					
-				//} else if (value == "volatile") {
-					
-				} else {
-					ECI_ERROR("get visibility : " << value << "' << NOT parsed !!!!" );
-				}
-				break;
-			case tokenCppType:
-				ECI_INFO("get type : " << value << "'" );
-				if (name == "") {
-					returnList.push_back(getVariableWithType(value));
-				} else {
-					ECI_ERROR("      get type : " << value << "' after name !!!" );
-				}
-				break;
-			case tokenCppString:
-				ECI_INFO("get string : " << value << "'" );
-				name = value;
-				break;
+	m_fileData = etk::FSNodeReadAllData(m_fileName);
+	if (    etk::end_with(m_fileName, "cpp", false) == true
+	     || etk::end_with(m_fileName, "cxx", false) == true
+	     || etk::end_with(m_fileName, "c", false) == true
+	     || etk::end_with(m_fileName, "hpp", false) == true
+	     || etk::end_with(m_fileName, "hxx", false) == true
+	     || etk::end_with(m_fileName, "h", false) == true) {
+		eci::ParserCpp tmpParser;
+		tmpParser.parse(m_fileData);
+		
+		// all we need all the time:
+		std::vector<eci::Variable> returnList;
+		std::vector<eci::Variable> argumentList;
+		std::string name;
+		std::string value;
+		std::shared_ptr<eci::Class> lastClass;
+		std::shared_ptr<eci::Function> lastFunction;
+		std::shared_ptr<eci::Variable> lastVariable;
+		enum eci::visibility lastVisibility = eci::visibilityPublic;
+		
+		for (auto &it : tmpParser.m_result.m_list) {
+			value = getValue(m_fileData, it);
+			switch (it->getTockenId()) {
+				case tokenCppVisibility:
+					ECI_INFO("get visibility : " << value << "'" );
+					if (value == "private") {
+						lastVisibility = eci::visibilityPrivate;
+					} else if (value == "public") {
+						lastVisibility = eci::visibilityPublic;
+					} else if (value == "protected") {
+						lastVisibility = eci::visibilityProtected;
+					//} else if (value == "inline") {
+						
+					//} else if (value == "const") {
+						
+					//} else if (value == "virtual") {
+						
+					//} else if (value == "friend") {
+						
+					//} else if (value == "extern") {
+						
+					//} else if (value == "register") {
+						
+					//} else if (value == "static") {
+						
+					//} else if (value == "volatile") {
+						
+					} else {
+						ECI_ERROR("get visibility : " << value << "' << NOT parsed !!!!" );
+					}
+					break;
+				case tokenCppType:
+					ECI_INFO("get type : " << value << "'" );
+					if (name == "") {
+						returnList.push_back(getVariableWithType(value));
+					} else {
+						ECI_ERROR("      get type : " << value << "' after name !!!" );
+					}
+					break;
+				case tokenCppString:
+					ECI_INFO("get string : " << value << "'" );
+					name = value;
+					break;
+			}
 		}
+	} else if (etk::end_with(m_fileName, "js", false) == true) {
+		eci::ParserJS tmpParser;
+		tmpParser.parse(m_fileData);
+		
+	} else {
+		ECI_CRITICAL("Unknow file type ... '" << m_fileName << "'");
 	}
 }
 
