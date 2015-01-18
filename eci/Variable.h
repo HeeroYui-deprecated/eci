@@ -15,7 +15,7 @@
 
 
 namespace eci {
-	class Variable {
+	class Variable : public std::enable_shared_from_this<Variable> {
 		public:
 			Variable();
 			~Variable();
@@ -23,7 +23,7 @@ namespace eci {
 			enum eci::visibility m_visibility;
 			bool m_const;
 			std::string m_name;
-			eci::Type m_type;
+			std::shared_ptr<eci::Type> m_type;
 	};
 }
 
