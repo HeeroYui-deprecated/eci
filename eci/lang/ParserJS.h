@@ -10,11 +10,12 @@
 #define __ECI_PARSER_JS_H__
 
 #include <eci/Lexer.h>
+#include <eci/Interpreter.h>
 
 namespace eci {
 	
 	enum jsTokenList {
-		tokenJSCommentMultiline,
+		tokenJSCommentMultiline = interpreter::typeReserveId,
 		tokenJSCommentSingleLine,
 		
 		tokenJSStringDoubleQuote,

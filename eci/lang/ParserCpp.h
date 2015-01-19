@@ -10,11 +10,12 @@
 #define __ECI_PARSER_CPP_H__
 
 #include <eci/Lexer.h>
+#include <eci/Interpreter.h>
 
 namespace eci {
 	
 	enum cppTokenList {
-		tokenCppCommentMultiline,
+		tokenCppCommentMultiline = interpreter::typeReserveId,
 		tokenCppCommentSingleLine,
 		tokenCppPreProcessor,
 		tokenCppPreProcessorIf,

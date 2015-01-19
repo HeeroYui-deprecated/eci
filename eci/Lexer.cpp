@@ -6,6 +6,7 @@
  * @license APACHE-2 (see license file)
  */
 
+#include <memory>
 #include <eci/Lexer.h>
 #include <eci/debug.h>
 
@@ -26,10 +27,10 @@ void eci::Lexer::append(int32_t _tokenId, const std::string& _regularExpression)
 	}
 }
 
-void eci::Lexer::appendSection(int32_t _tokenId, int32_t _tockenStart, int32_t _tockenStop) {
+void eci::Lexer::appendSection(int32_t _tokenId, int32_t _tockenStart, int32_t _tockenStop, const std::string& _type) {
 	ECI_INFO("CPP lexer add section [" << _tokenId << "] : '" << _tockenStart << "' .. '" << _tockenStop << "'");
 	try {
-		m_searchList.push_back(std::make_shared<eci::Lexer::TypeSection>(_tokenId, _tockenStart, _tockenStop));
+		m_searchList.push_back(std::make_shared<eci::Lexer::TypeSection>(_tokenId, _tockenStart, _tockenStop, _type));
 	} catch (std::exception e){
 		ECI_ERROR(" create reg exp : '" << _tockenStart << "' .. '" << _tockenStop << "' : what:" << e.what());
 	}
@@ -44,10 +45,10 @@ void eci::Lexer::appendSub(int32_t _tokenIdParrent, int32_t _tokenId, const std:
 	}
 }
 
-void eci::Lexer::appendSubSection(int32_t _tokenIdParrent, int32_t _tokenId, int32_t _tockenStart, int32_t _tockenStop) {
+void eci::Lexer::appendSubSection(int32_t _tokenIdParrent, int32_t _tokenId, int32_t _tockenStart, int32_t _tockenStop, const std::string& _type) {
 	ECI_INFO("CPP lexer add section sub : [" << _tokenId << "] [" << _tokenIdParrent << "] '" << _tockenStart << "' .. '" << _tockenStop << "'");
 	try {
-		m_searchList.push_back(std::make_shared<eci::Lexer::TypeSubSection>(_tokenId, _tokenIdParrent, _tockenStart, _tockenStop));
+		m_searchList.push_back(std::make_shared<eci::Lexer::TypeSubSection>(_tokenId, _tokenIdParrent, _tockenStart, _tockenStop, _type));
 	} catch (std::exception e){
 		ECI_ERROR(" create reg exp : '" << _tockenStart << "' .. '" << _tockenStop << "' : what:" << e.what());
 	}
@@ -176,9 +177,9 @@ void eci::Lexer::TypeSection::parseSectionCurrent(std::vector<std::shared_ptr<ec
 			// agragate the subtoken :
 			int32_t startPos = _data[startId]->getStartPos();
 			int32_t stopPos = _data[iii]->getStopPos();
-			std::shared_ptr<eci::LexerNodeContainer> newContainer = std::make_shared<eci::LexerNodeContainer>(m_tockenId, startPos, stopPos);
+			std::shared_ptr<eci::LexerNodeContainer> newContainer = std::make_shared<eci::LexerNodeContainer>(m_tockenId, startPos, stopPos, type);
 			ECI_VERBOSE("    Agregate: " << startId << " -> " << iii);
-			newContainer->m_list.insert(newContainer->m_list.begin(), _data.begin()+startId, _data.begin()+iii+1);
+			newContainer->m_list.insert(newContainer->m_list.begin(), _data.begin()+startId+1, _data.begin()+iii);
 			ECI_VERBOSE("    list size=" << newContainer->m_list.size() << " old=" << _data.size());
 			_data.erase(_data.begin()+startId, _data.begin()+iii+1);
 			ECI_VERBOSE("    list size=" << newContainer->m_list.size() << " old=" << _data.size());

@@ -30,9 +30,9 @@ eci::ParserJS::ParserJS() {
 	m_lexer.append(tokenJSAssignation, "(\\+=|-=|\\*=|/=|=|\\*|/|--|-|\\+\\+|\\+|&)");
 	m_lexer.append(tokenJSString, "\\w+");
 	m_lexer.append(tokenJSSeparator, "(;|,)");
-	m_lexer.appendSection(tokenJSSectionBrace, tokenJSBraceIn, tokenJSBraceOut);
-	m_lexer.appendSection(tokenJSSectionPthese, tokenJSPtheseIn, tokenJSPtheseOut);
-	m_lexer.appendSection(tokenJSSectionHook, tokenJSHookIn, tokenJSHookOut);
+	m_lexer.appendSection(tokenJSSectionBrace, tokenJSBraceIn, tokenJSBraceOut, "{}");
+	m_lexer.appendSection(tokenJSSectionPthese, tokenJSPtheseIn, tokenJSPtheseOut, "()");
+	m_lexer.appendSection(tokenJSSectionHook, tokenJSHookIn, tokenJSHookOut, "[]");
 }
 
 eci::ParserJS::~ParserJS() {
@@ -48,7 +48,7 @@ static void printNode(const std::string& _data, const std::vector<std::shared_pt
 		if (it->isNodeContainer() == true) {
 			std::shared_ptr<eci::LexerNodeContainer> sec = std::dynamic_pointer_cast<eci::LexerNodeContainer>(it);
 			if (sec != nullptr) {
-				ECI_INFO(offset << "  " << it->getStartPos() << "->" << it->getStopPos() << " (container)");
+				ECI_INFO(offset << "  " << sec->getStartPos() << "->" << sec->getStopPos() << " container: " << sec->getType());
 				printNode(_data, sec->m_list, _level+1);
 			}
 		} else {

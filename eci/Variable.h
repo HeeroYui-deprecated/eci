@@ -12,13 +12,14 @@
 #include <etk/types.h>
 #include <eci/visibility.h>
 #include <eci/Type.h>
+#include <memory>
 
 
 namespace eci {
 	class Variable : public std::enable_shared_from_this<Variable> {
 		public:
 			Variable();
-			~Variable();
+			virtual ~Variable();
 		private:
 			enum eci::visibility m_visibility;
 			bool m_const;

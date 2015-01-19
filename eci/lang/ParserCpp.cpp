@@ -48,9 +48,9 @@ eci::ParserCpp::ParserCpp() {
 	m_lexer.append(tokenCppAssignation, "(\\+=|-=|\\*=|/=|=|\\*|/|--|-|\\+\\+|\\+|&)");
 	m_lexer.append(tokenCppString, "\\w+");
 	m_lexer.append(tokenCppSeparator, "(;|,|::|:)");
-	m_lexer.appendSection(tokenCppSectionBrace, tokenCppBraceIn, tokenCppBraceOut);
-	m_lexer.appendSection(tokenCppSectionPthese, tokenCppPtheseIn, tokenCppPtheseOut);
-	m_lexer.appendSection(tokenCppSectionHook, tokenCppHookIn, tokenCppHookOut);
+	m_lexer.appendSection(tokenCppSectionBrace, tokenCppBraceIn, tokenCppBraceOut, "{}");
+	m_lexer.appendSection(tokenCppSectionPthese, tokenCppPtheseIn, tokenCppPtheseOut, "()");
+	m_lexer.appendSection(tokenCppSectionHook, tokenCppHookIn, tokenCppHookOut, "[]");
 }
 
 eci::ParserCpp::~ParserCpp() {
@@ -66,7 +66,7 @@ static void printNode(const std::string& _data, const std::vector<std::shared_pt
 		if (it->isNodeContainer() == true) {
 			std::shared_ptr<eci::LexerNodeContainer> sec = std::dynamic_pointer_cast<eci::LexerNodeContainer>(it);
 			if (sec != nullptr) {
-				ECI_INFO(offset << "  " << it->getStartPos() << "->" << it->getStopPos() << " (container)");
+				ECI_INFO(offset << "  " << sec->getStartPos() << "->" << sec->getStopPos() << " container: " << sec->getType());
 				printNode(_data, sec->m_list, _level+1);
 			}
 		} else {
