@@ -1,8 +1,7 @@
 #!/usr/bin/python
-import lutinModule as module
-import lutinTools as tools
+import lutin.module as module
+import lutin.tools as tools
 import os
-import lutinMultiprocess
 
 def get_desc():
 	return "Ewol C Interpreter"
