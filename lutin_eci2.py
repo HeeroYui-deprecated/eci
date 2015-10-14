@@ -6,12 +6,9 @@ import os
 def get_desc():
 	return "Ewol C Interpreter"
 
-def create(target):
-	# module name is 'edn' and type binary.
-	myModule = module.Module(__file__, 'eci2', 'BINARY')
-	# add extra compilation flags :
+def create(target, module_name):
+	myModule = module.Module(__file__, module_name, 'BINARY')
 	myModule.add_extra_compile_flags()
-	# add the file to compile:
 	myModule.add_src_file([
 		'eci/eci.cpp',
 		'eci/Lexer.cpp',
