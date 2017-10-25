@@ -1,15 +1,12 @@
 /**
  * @author Edouard DUPIN
- * 
  * @copyright 2014, Edouard DUPIN, all right reserved
- * 
- * @license APACHE-2 (see license file)
+ * @license MPL-2 (see license file)
  */
 
-#ifndef __ECI_VISIBILITY_H__
-#define __ECI_VISIBILITY_H__
+#pragma once
 
-#include <etk/types.h>
+#include <etk/types.hpp>
 
 namespace eci {
 	enum visibility {
@@ -20,4 +17,3 @@ namespace eci {
 	};
 }
 
-#endif

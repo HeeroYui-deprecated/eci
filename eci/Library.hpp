@@ -1,15 +1,13 @@
 /**
  * @author Edouard DUPIN
- * 
  * @copyright 2014, Edouard DUPIN, all right reserved
- * 
- * @license APACHE-2 (see license file)
+ * @license MPL-2 (see license file)
  */
 
-#ifndef __ECI_LIBRARY_H__
-#define __ECI_LIBRARY_H__
+#pragma once
 
-#include <etk/types.h>
+#include <etk/types.hpp>
+#include <etk/String.hpp>
 
 namespace eci {
 	class Library {
@@ -17,8 +15,7 @@ namespace eci {
 			Library() {};
 			~Library() {};
 		protected:
-			std::string m_name; //!< library name (just for debug)
+			etk::String m_name; //!< library name (just for debug)
 	};
 }
 
-#endif

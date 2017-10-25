@@ -1,21 +1,19 @@
 /**
  * @author Edouard DUPIN
- * 
- * @copyright 2011, Edouard DUPIN, all right reserved
- * 
- * @license APACHE-2 (see license file)
+ * @copyright 2014, Edouard DUPIN, all right reserved
+ * @license MPL-2 (see license file)
  */
 
-#ifndef __ECI_DEBUG_H__
-#define __ECI_DEBUG_H__
+#pragma once
 
-#include <etk/log.h>
+#include <elog/log.hpp>
 
 namespace eci {
 	int32_t getLogId();
 };
-#define ECI_BASE(info,data) TK_LOG_BASE(eci::getLogId(),info,data)
+#define ECI_BASE(info,data) ELOG_BASE(eci::getLogId(),info,data)
 
+#define ECI_PRINT(data)         ECI_BASE(-1, data)
 #define ECI_CRITICAL(data)      ECI_BASE(1, data)
 #define ECI_ERROR(data)         ECI_BASE(2, data)
 #define ECI_WARNING(data)       ECI_BASE(3, data)
@@ -39,5 +37,4 @@ namespace eci {
 		} \
 	} while (0)
 
-#endif
 

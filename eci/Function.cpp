@@ -1,13 +1,11 @@
 /**
  * @author Edouard DUPIN
- * 
  * @copyright 2014, Edouard DUPIN, all right reserved
- * 
- * @license APACHE-2 (see license file)
+ * @license MPL-2 (see license file)
  */
 
-#include <eci/Function.h>
-#include <eci/debug.h>
+#include <eci/Function.hpp>
+#include <eci/debug.hpp>
 
 
 eci::Function::Function() :
@@ -21,8 +19,8 @@ eci::Function::~Function() {
 	
 }
 
-std::vector<std::shared_ptr<eci::Value>> eci::Function::call(const std::vector<std::shared_ptr<eci::Value>>& _input) {
-	return std::vector<std::shared_ptr<eci::Value>>();
+etk::Vector<ememory::SharedPtr<eci::Value>> eci::Function::call(const etk::Vector<ememory::SharedPtr<eci::Value>>& _input) {
+	return etk::Vector<ememory::SharedPtr<eci::Value>>();
 }
 
 

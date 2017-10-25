@@ -1,20 +1,17 @@
 /**
  * @author Edouard DUPIN
- * 
  * @copyright 2014, Edouard DUPIN, all right reserved
- * 
- * @license APACHE-2 (see license file)
+ * @license MPL-2 (see license file)
  */
 
-#ifndef __ECI_LEXER_H__
-#define __ECI_LEXER_H__
+#pragma once
 
-#include <etk/types.h>
-#include <etk/stdTools.h>
-#include <regex>
-#include <map>
-#include <vector>
-#include <eci/Interpreter.h>
+#include <etk/types.hpp>
+#include <etk/stdTools.hpp>
+#include <etk/RegEx.hpp>
+#include <etk/Map.hpp>
+#include <etk/Vector.hpp>
+#include <eci/Interpreter.hpp>
 
 
 namespace eci {
@@ -28,44 +25,44 @@ namespace eci {
 			}
 			virtual ~LexerNode() {};
 			int32_t m_startPos;
-			int32_t getStartPos() {
+			int32_t getStartPos() const {
 				return m_startPos;
 			}
 			int32_t m_stopPos;
-			int32_t getStopPos() {
+			int32_t getStopPos() const {
 				return m_stopPos;
 			}
-			virtual bool isNodeContainer() {
+			virtual bool isNodeContainer() const {
 				return false;
 			}
 	};
 	class LexerNodeContainer : public LexerNode {
 		private:
-			std::string m_type;
+			etk::String m_type;
 		public:
-			LexerNodeContainer(int32_t _tockenId=-1, int32_t _startPos=-1, int32_t _stopPos=-1, const std::string& _type="") :
+			LexerNodeContainer(int32_t _tockenId=-1, int32_t _startPos=-1, int32_t _stopPos=-1, const etk::String& _type="") :
 			  LexerNode(_tockenId, _startPos, _stopPos) {
 				m_type = _type;
 			}
 			virtual ~LexerNodeContainer() {};
-			std::vector<std::shared_ptr<eci::LexerNode>> m_list;
-			virtual bool isNodeContainer() {
+			etk::Vector<ememory::SharedPtr<eci::LexerNode>> m_list;
+			virtual bool isNodeContainer() const {
 				return true;
 			}
-			const std::string& getType() const {
+			const etk::String& getType() const {
 				return m_type;
 			}
 	};
 	class LexerResult {
 		private:
-			std::string m_data;
+			etk::String m_data;
 		public:
-			LexerResult(const std::string& _data="") :
+			LexerResult(const etk::String& _data="") :
 			  m_data(_data) {
 				
 			}
 			~LexerResult() {};
-			std::vector<std::shared_ptr<eci::LexerNode>> m_list;
+			etk::Vector<ememory::SharedPtr<eci::LexerNode>> m_list;
 	};
 	
 	class Lexer {
@@ -78,7 +75,7 @@ namespace eci {
 			class Type {
 				protected:
 					int32_t m_tockenId;
-					std::string m_regexValue;
+					etk::String m_regexValue;
 				public:
 					Type(int32_t _tockenId) :
 					  m_tockenId(_tockenId) {}
@@ -89,14 +86,14 @@ namespace eci {
 					int32_t getTockenId() {
 						return m_tockenId;
 					}
-					virtual std::vector<std::shared_ptr<eci::LexerNode>> parse(const std::string& _data, int32_t _start, int32_t _stop) {
-						return std::vector<std::shared_ptr<eci::LexerNode>>();
+					virtual etk::Vector<ememory::SharedPtr<eci::LexerNode>> parse(const etk::String& _data, int32_t _start, int32_t _stop) {
+						return etk::Vector<ememory::SharedPtr<eci::LexerNode>>();
 					};
-					virtual void parseSection(std::vector<std::shared_ptr<eci::LexerNode>>& _data) {
+					virtual void parseSection(etk::Vector<ememory::SharedPtr<eci::LexerNode>>& _data) {
 						// nothing to do ...
 					};
 					
-					std::string getValue() {
+					etk::String getValue() {
 						return m_regexValue;
 					};
 					virtual bool isSubParse() {
@@ -108,28 +105,28 @@ namespace eci {
 			};
 			class TypeBase : public Type {
 				public:
-					std::regex regex;
-					TypeBase(int32_t _tockenId, const std::string& _regex="") :
+					etk::RegEx<etk::String> m_regex;
+					TypeBase(int32_t _tockenId, const etk::String& _regex="") :
 					  Type(_tockenId),
-					  regex(_regex, std::regex_constants::optimize | std::regex_constants::ECMAScript) {
+					  m_regex(_regex) {
 						m_regexValue = _regex;
 					}
 					virtual int32_t getType() {
 						return TYPE_BASE;
 					}
-					std::vector<std::shared_ptr<eci::LexerNode>> parse(const std::string& _data, int32_t _start, int32_t _stop);
+					etk::Vector<ememory::SharedPtr<eci::LexerNode>> parse(const etk::String& _data, int32_t _start, int32_t _stop);
 			};
 			class TypeSection : public Type {
 				public:
 					int32_t tockenStart;
 					int32_t tockenStop;
-					std::string type;
-					TypeSection(int32_t _tockenId, int32_t _tockenStart=-1, int32_t _tockenStop=-1, const std::string& _type="") :
+					etk::String type;
+					TypeSection(int32_t _tockenId, int32_t _tockenStart=-1, int32_t _tockenStop=-1, const etk::String& _type="") :
 					  Type(_tockenId),
 					  tockenStart(_tockenStart),
 					  tockenStop(_tockenStop),
 					  type(_type) {
-						m_regexValue = "tok=" + etk::to_string(tockenStart) + " -> tok=" + etk::to_string(tockenStop);
+						m_regexValue = "tok=" + etk::toString(tockenStart) + " -> tok=" + etk::toString(tockenStop);
 					}
 					virtual int32_t getType() {
 						return TYPE_SECTION;
@@ -137,19 +134,19 @@ namespace eci {
 					virtual bool isSection() {
 						return true;
 					}
-					void parseSectionCurrent(std::vector<std::shared_ptr<eci::LexerNode>>& _data);
-					void parseSection(std::vector<std::shared_ptr<eci::LexerNode>>& _data);
+					void parseSectionCurrent(etk::Vector<ememory::SharedPtr<eci::LexerNode>>& _data);
+					void parseSection(etk::Vector<ememory::SharedPtr<eci::LexerNode>>& _data);
 			};
 			class TypeSubBase : public TypeBase {
 				public:
 					int32_t parrent;
-					TypeSubBase(int32_t _tockenId, int32_t _tokenIdParrent=-1, const std::string& _regex="") :
+					TypeSubBase(int32_t _tockenId, int32_t _tokenIdParrent=-1, const etk::String& _regex="") :
 					  TypeBase(_tockenId, _regex),
 					  parrent(_tokenIdParrent) {}
 					virtual int32_t getType() {
 						return TYPE_SUB_BASE;
 					}
-					std::vector<std::shared_ptr<eci::LexerNode>> parse(const std::string& _data, int32_t _start, int32_t _stop);
+					etk::Vector<ememory::SharedPtr<eci::LexerNode>> parse(const etk::String& _data, int32_t _start, int32_t _stop);
 					bool isSubParse() {
 						return true;
 					}
@@ -157,18 +154,18 @@ namespace eci {
 			class TypeSubSection : public TypeSection {
 				public:
 					int32_t parrent;
-					TypeSubSection(int32_t _tockenId, int32_t _tokenIdParrent=-1, int32_t _tockenStart=-1, int32_t _tockenStop=-1, const std::string& _type="") :
+					TypeSubSection(int32_t _tockenId, int32_t _tokenIdParrent=-1, int32_t _tockenStart=-1, int32_t _tockenStop=-1, const etk::String& _type="") :
 					  TypeSection(_tockenId, _tockenStart, _tockenStop, _type),
 					  parrent(_tokenIdParrent) {}
 					virtual int32_t getType() {
 						return TYPE_SUB_SECTION;
 					}
-					std::vector<std::shared_ptr<eci::LexerNode>> parse(const std::string& _data, int32_t _start, int32_t _stop);
+					etk::Vector<ememory::SharedPtr<eci::LexerNode>> parse(const etk::String& _data, int32_t _start, int32_t _stop);
 					bool isSubParse() {
 						return true;
 					}
 			};
-			std::vector<std::shared_ptr<eci::Lexer::Type>> m_searchList;
+			etk::Vector<ememory::SharedPtr<eci::Lexer::Type>> m_searchList;
 		public:
 			Lexer();
 			~Lexer();
@@ -177,7 +174,7 @@ namespace eci {
 			 * @param[in] _tokenId Tocken id value.
 			 * @param[in] _regularExpression reconise regular expression.
 			 */
-			void append(int32_t _tokenId, const std::string& _regularExpression);
+			void append(int32_t _tokenId, const etk::String& _regularExpression);
 			/**
 			 * @brief Append a Token recognition (section reconise start and stop with counting the number of start and stop).
 			 * @param[in] _tokenId Tocken id value.
@@ -185,14 +182,14 @@ namespace eci {
 			 * @param[in] _tockenStop Tocken stop.
 			 * @param[in] _type register type when we parse it ...
 			 */
-			void appendSection(int32_t _tokenId, int32_t _tockenStart, int32_t _tockenStop, const std::string& _type);
+			void appendSection(int32_t _tokenId, int32_t _tockenStart, int32_t _tockenStop, const etk::String& _type);
 			/**
 			 * @brief Append a Token recognition (sub parsing).
 			 * @param[in] _tokenIdParrent parrent Tocken id value.
 			 * @param[in] _tokenId Tocken id value.
 			 * @param[in] _regularExpression reconise regular expression.
 			 */
-			void appendSub(int32_t _tokenIdParrent, int32_t _tokenId, const std::string& _regularExpression);
+			void appendSub(int32_t _tokenIdParrent, int32_t _tokenId, const etk::String& _regularExpression);
 			/**
 			 * @brief Append a Token recognition (sub parsing) (section reconise start and stop with counting the number of start and stop).
 			 * @param[in] _tokenIdParrent parrent Tocken id value.
@@ -201,10 +198,8 @@ namespace eci {
 			 * @param[in] _tockenStop Tocken stop.
 			 * @param[in] _type register type when we parse it ...
 			 */
-			void appendSubSection(int32_t _tokenIdParrent, int32_t _tokenId, int32_t _tockenStart, int32_t _tockenStop, const std::string& _type);
+			void appendSubSection(int32_t _tokenIdParrent, int32_t _tokenId, int32_t _tockenStart, int32_t _tockenStop, const etk::String& _type);
 			
-			LexerResult interprete(const std::string& _data);
+			LexerResult interprete(const etk::String& _data);
 	};
 }
-
-#endif

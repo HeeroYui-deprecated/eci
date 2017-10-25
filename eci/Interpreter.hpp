@@ -1,17 +1,14 @@
 /**
  * @author Edouard DUPIN
- * 
  * @copyright 2014, Edouard DUPIN, all right reserved
- * 
- * @license APACHE-2 (see license file)
+ * @license MPL-2 (see license file)
  */
 
-#ifndef __ECI_INTERPRETER_H__
-#define __ECI_INTERPRETER_H__
+#pragma once
 
-#include <etk/types.h>
-#include <eci/Library.h>
-#include <eci/File.h>
+#include <etk/types.hpp>
+#include <eci/Library.hpp>
+#include <eci/File.hpp>
 
 namespace eci {
 	namespace interpreter {
@@ -29,7 +26,7 @@ namespace eci {
 			typeOperator, //!< Call operator "xx" ex : "*" "++" "=" "=="
 			typeReserveId = 5000,
 		};
-		class Element : public std::enable_shared_from_this<Element> {
+		class Element : public ememory::EnableSharedFromThis<Element> {
 			protected:
 				int32_t m_tockenId;
 			public:
@@ -45,7 +42,7 @@ namespace eci {
 		};
 		class Block : public Element {
 			protected:
-				std::vector<std::shared_ptr<Element>> m_actions;
+				etk::Vector<ememory::SharedPtr<Element>> m_actions;
 			public:
 				Block() :
 				  Element(interpreter::typeBlock) {
@@ -115,9 +112,9 @@ namespace eci {
 		};
 		class Condition : public Element {
 			protected:
-				std::shared_ptr<Element> m_condition;
-				std::shared_ptr<Block> m_block;
-				std::shared_ptr<Block> m_blockElse;
+				ememory::SharedPtr<Element> m_condition;
+				ememory::SharedPtr<Block> m_block;
+				ememory::SharedPtr<Block> m_blockElse;
 			public:
 				Condition() :
 				  Element(interpreter::typeCondition) {
@@ -128,10 +125,10 @@ namespace eci {
 		};
 		class For : public Element {
 			protected:
-				std::shared_ptr<Element> m_init;
-				std::shared_ptr<Element> m_condition;
-				std::shared_ptr<Element> m_increment;
-				std::shared_ptr<Block> m_block;
+				ememory::SharedPtr<Element> m_init;
+				ememory::SharedPtr<Element> m_condition;
+				ememory::SharedPtr<Element> m_increment;
+				ememory::SharedPtr<Block> m_block;
 			public:
 				For() :
 				  Element(interpreter::typeFor) {
@@ -143,8 +140,8 @@ namespace eci {
 		class While : public Element {
 			protected:
 				bool m_conditionAtStart;
-				std::shared_ptr<Element> m_condition;
-				std::shared_ptr<Element> m_action;
+				ememory::SharedPtr<Element> m_condition;
+				ememory::SharedPtr<Element> m_action;
 			public:
 				While() :
 				  Element(interpreter::typeWhile) {
@@ -154,7 +151,7 @@ namespace eci {
 		};
 		class Operator : public Element {
 			protected:
-				std::string m_operator;
+				etk::String m_operator;
 			public:
 				Operator() :
 				  Element(interpreter::typeOperator) {
@@ -169,12 +166,10 @@ namespace eci {
 			Interpreter();
 			~Interpreter();
 		protected:
-			std::vector<eci::Library> m_libraries; //!< list of all loaded libraries.
-			std::vector<eci::File> m_files; //!< List of all files in the current program.
+			etk::Vector<eci::Library> m_libraries; //!< list of all loaded libraries.
+			etk::Vector<eci::File> m_files; //!< List of all files in the current program.
 		public:
-			void addFile(const std::string& _filename);
+			void addFile(const etk::String& _filename);
 			void main();
 	};
 }
-
-#endif

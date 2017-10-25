@@ -1,11 +1,10 @@
 /**
  * @author Edouard DUPIN
- * 
  * @copyright 2014, Edouard DUPIN, all right reserved
- * 
- * @license APACHE-2 (see license file)
+ * @license MPL-2 (see license file)
  */
 
-#include <eci/Type.h>
-#include <eci/debug.h>
+
+#include <eci/Type.hpp>
+#include <eci/debug.hpp>
 

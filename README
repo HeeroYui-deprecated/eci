@@ -1,11 +1,11 @@
 ECI : Ewol C Interpreter
 -----
 
-Eci is a fork of PicoC...
+ECI is a stipid interpreter of C language or C++, a good question ==> need rename the lib ...
 
 
 
 Copyright
 ---------
 
-BSD 3 clauses
+MPL-2

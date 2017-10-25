@@ -4,6 +4,7 @@
  * @license MPL-2 (see license file)
  */
 
-#include <eci/Class.hpp>
-#include <eci/debug.hpp>
+#pragma once
+
+#include <etk/types.hpp>
 

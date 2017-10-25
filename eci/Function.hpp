@@ -1,19 +1,16 @@
 /**
  * @author Edouard DUPIN
- * 
  * @copyright 2014, Edouard DUPIN, all right reserved
- * 
- * @license APACHE-2 (see license file)
+ * @license MPL-2 (see license file)
  */
 
-#ifndef __ECI_FUNCTION_H__
-#define __ECI_FUNCTION_H__
+#pragma once
 
-#include <etk/types.h>
-#include <eci/visibility.h>
-#include <eci/Variable.h>
-#include <eci/Value.h>
-#include <memory>
+#include <etk/types.hpp>
+#include <eci/visibility.hpp>
+#include <eci/Variable.hpp>
+#include <eci/Value.hpp>
+#include <ememory/memory.hpp>
 
 namespace eci {
 	class Function {
@@ -21,14 +18,14 @@ namespace eci {
 			Function();
 			~Function();
 		protected:
-			std::string m_name; //!< Function Name.
+			etk::String m_name; //!< Function Name.
 			bool m_const; //!< The function is const.
 			bool m_static; //!< function is static.
 			enum eci::visibility m_visibility; //!< Visibility of the function
-			std::vector<eci::Variable> m_return; //!< return value.
-			std::vector<eci::Variable> m_arguments; //!< return value.
+			etk::Vector<eci::Variable> m_return; //!< return value.
+			etk::Vector<eci::Variable> m_arguments; //!< return value.
 			
-			std::vector<std::shared_ptr<eci::Value>> call(const std::vector<std::shared_ptr<eci::Value>>& _input);
+			etk::Vector<ememory::SharedPtr<eci::Value>> call(const etk::Vector<ememory::SharedPtr<eci::Value>>& _input);
 			
 			// 3 step:
 			//    - first get Tockens (returns , names, const, parameters, codes
@@ -37,4 +34,3 @@ namespace eci {
 	};
 }
 
-#endif

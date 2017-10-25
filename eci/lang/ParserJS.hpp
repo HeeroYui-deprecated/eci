@@ -1,16 +1,14 @@
 /**
  * @author Edouard DUPIN
- * 
  * @copyright 2014, Edouard DUPIN, all right reserved
- * 
- * @license APACHE-2 (see license file)
+ * @license MPL-2 (see license file)
  */
 
-#ifndef __ECI_PARSER_JS_H__
-#define __ECI_PARSER_JS_H__
+#pragma once
 
-#include <eci/Lexer.h>
-#include <eci/Interpreter.h>
+#include <etk/types.hpp>
+#include <eci/Lexer.hpp>
+#include <eci/Interpreter.hpp>
 
 namespace eci {
 	
@@ -47,8 +45,6 @@ namespace eci {
 		public:
 			ParserJS();
 			~ParserJS();
-			bool parse(const std::string& _data);
+			bool parse(const etk::String& _data);
 	};
 }
-
-#endif

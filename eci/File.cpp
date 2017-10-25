@@ -1,23 +1,21 @@
 /**
  * @author Edouard DUPIN
- * 
  * @copyright 2014, Edouard DUPIN, all right reserved
- * 
- * @license APACHE-2 (see license file)
+ * @license MPL-2 (see license file)
  */
 
-#include <eci/File.h>
-#include <eci/debug.h>
-#include <etk/os/FSNode.h>
-#include <eci/lang/ParserCpp.h>
-#include <eci/lang/ParserJS.h>
+#include <eci/File.hpp>
+#include <eci/debug.hpp>
+#include <etk/os/FSNode.hpp>
+#include <eci/lang/ParserCpp.hpp>
+#include <eci/lang/ParserJS.hpp>
 
 
-static std::string getValue(const std::string& _file, const std::shared_ptr<eci::LexerNode>& _it) {
-	return std::string(_file, _it->getStartPos(), _it->getStopPos()-_it->getStartPos());
+static etk::String getValue(const etk::String& _file, const ememory::SharedPtr<eci::LexerNode>& _it) {
+	return etk::String(_file, _it->getStartPos(), _it->getStopPos()-_it->getStartPos());
 }
 
-eci::Variable getVariableWithType(const std::string& _value) {
+eci::Variable getVariableWithType(const etk::String& _value) {
 	eci::Variable ret;
 	if (_value == "void") {
 		
@@ -59,7 +57,7 @@ eci::Variable getVariableWithType(const std::string& _value) {
 	return ret;
 }
 
-eci::File::File(const std::string& _filename) {
+eci::File::File(const etk::String& _filename) {
 	m_fileName = _filename;
 	m_fileData = etk::FSNodeReadAllData(m_fileName);
 	if (    etk::end_with(m_fileName, "cpp", false) == true
@@ -72,13 +70,13 @@ eci::File::File(const std::string& _filename) {
 		tmpParser.parse(m_fileData);
 		
 		// all we need all the time:
-		std::vector<eci::Variable> returnList;
-		std::vector<eci::Variable> argumentList;
-		std::string name;
-		std::string value;
-		std::shared_ptr<eci::Class> lastClass;
-		std::shared_ptr<eci::Function> lastFunction;
-		std::shared_ptr<eci::Variable> lastVariable;
+		etk::Vector<eci::Variable> returnList;
+		etk::Vector<eci::Variable> argumentList;
+		etk::String name;
+		etk::String value;
+		ememory::SharedPtr<eci::Class> lastClass;
+		ememory::SharedPtr<eci::Function> lastFunction;
+		ememory::SharedPtr<eci::Variable> lastVariable;
 		enum eci::visibility lastVisibility = eci::visibilityPublic;
 		
 		for (auto &it : tmpParser.m_result.m_list) {
@@ -115,7 +113,7 @@ eci::File::File(const std::string& _filename) {
 				case tokenCppType:
 					ECI_INFO("get type : " << value << "'" );
 					if (name == "") {
-						returnList.push_back(getVariableWithType(value));
+						returnList.pushBack(getVariableWithType(value));
 					} else {
 						ECI_ERROR("      get type : " << value << "' after name !!!" );
 					}

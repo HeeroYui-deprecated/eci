@@ -1,13 +1,11 @@
 /**
  * @author Edouard DUPIN
- * 
  * @copyright 2014, Edouard DUPIN, all right reserved
- * 
- * @license APACHE-2 (see license file)
+ * @license MPL-2 (see license file)
  */
 
-#include <eci/lang/ParserJS.h>
-#include <eci/debug.h>
+#include <eci/lang/ParserJS.hpp>
+#include <eci/debug.hpp>
 
 
 eci::ParserJS::ParserJS() {
@@ -39,25 +37,25 @@ eci::ParserJS::~ParserJS() {
 	
 }
 
-static void printNode(const std::string& _data, const std::vector<std::shared_ptr<eci::LexerNode>>& _nodes, int32_t _level=0) {
-	std::string offset;
+static void printNode(const etk::String& _data, const etk::Vector<ememory::SharedPtr<eci::LexerNode>>& _nodes, int32_t _level=0) {
+	etk::String offset;
 	for (int32_t iii=0; iii<_level; ++iii) {
 		offset += "    ";
 	}
 	for (auto &it : _nodes) {
 		if (it->isNodeContainer() == true) {
-			std::shared_ptr<eci::LexerNodeContainer> sec = std::dynamic_pointer_cast<eci::LexerNodeContainer>(it);
+			ememory::SharedPtr<eci::LexerNodeContainer> sec = ememory::dynamicPointerCast<eci::LexerNodeContainer>(it);
 			if (sec != nullptr) {
 				ECI_INFO(offset << "  " << sec->getStartPos() << "->" << sec->getStopPos() << " container: " << sec->getType());
 				printNode(_data, sec->m_list, _level+1);
 			}
 		} else {
-			ECI_INFO(offset << it->getStartPos() << "->" << it->getStopPos() << " data='" <<std::string(_data, it->getStartPos(), it->getStopPos()-it->getStartPos()) << "'" );
+			ECI_INFO(offset << it->getStartPos() << "->" << it->getStopPos() << " data='" <<etk::String(_data, it->getStartPos(), it->getStopPos()-it->getStartPos()) << "'" );
 		}
 	}
 }
 
-bool eci::ParserJS::parse(const std::string& _data) {
+bool eci::ParserJS::parse(const etk::String& _data) {
 	m_result = m_lexer.interprete(_data);
 	
 	// TODO: Agregate type
@@ -68,7 +66,7 @@ bool eci::ParserJS::parse(const std::string& _data) {
 	printNode(_data, m_result.m_list);
 	/*
 	for (auto &it : m_result.m_list) {
-		ECI_INFO("    start=" << it->getStartPos() << " stop=" << it->getStopPos() << " data='" <<std::string(_data, it->getStartPos(), it->getStopPos()-it->getStartPos()) << "'" );
+		ECI_INFO("    start=" << it->getStartPos() << " stop=" << it->getStopPos() << " data='" <<etk::String(_data, it->getStartPos(), it->getStopPos()-it->getStartPos()) << "'" );
 	}
 	*/
 	return false;

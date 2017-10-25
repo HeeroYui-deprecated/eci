@@ -4,19 +4,28 @@ import lutin.tools as tools
 import os
 
 def get_type():
-	return "LIBRARY"
+	return "BINARY"
+
+def get_name():
+	return "ECI"
 
 def get_desc():
 	return "Ewol C Interpreter"
 
 def get_licence():
-	return "APACHE-2"
+	return "MPL-2"
 
 def get_compagny_type():
-	return "com"
+	return "org"
 
 def get_compagny_name():
-	return "atria-soft"
+	return "Edouard DUPIN"
+
+def get_maintainer():
+	return ["Mr DUPIN Edouard <yui.heero@gmail.com>"]
+
+def get_version():
+	return [0,1,"dev"]
 
 def configure(target, my_module):
 	my_module.add_extra_flags()
