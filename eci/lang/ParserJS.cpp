@@ -45,7 +45,7 @@ static void printNode(const etk::String& _data, const etk::Vector<ememory::Share
 	for (auto &it : _nodes) {
 		if (it->isNodeContainer() == true) {
 			ememory::SharedPtr<eci::LexerNodeContainer> sec = ememory::dynamicPointerCast<eci::LexerNodeContainer>(it);
-			if (sec != nullptr) {
+			if (sec != null) {
 				ECI_INFO(offset << "  " << sec->getStartPos() << "->" << sec->getStopPos() << " container: " << sec->getType());
 				printNode(_data, sec->m_list, _level+1);
 			}

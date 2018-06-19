@@ -58,7 +58,7 @@ eci::LexerResult eci::Lexer::interprete(const etk::String& _data) {
 	ECI_INFO("Parse : \n" << _data);
 	for (auto &it : m_searchList) {
 		//ECI_INFO("Parse RegEx : " << it.first << " : " << it.second.getRegExDecorated());
-		if (it == nullptr) {
+		if (it == null) {
 			continue;
 		}
 		if (it->isSubParse() == true) {
@@ -71,7 +71,7 @@ eci::LexerResult eci::Lexer::interprete(const etk::String& _data) {
 				int32_t start = 0;
 				auto itList(result.m_list.begin());
 				while (itList != result.m_list.end()) {
-					if (*itList == nullptr) {
+					if (*itList == null) {
 						ECI_TODO("remove null shared_ptr");
 						++itList;
 						continue;
@@ -169,7 +169,7 @@ etk::Vector<ememory::SharedPtr<eci::LexerNode>> eci::Lexer::TypeBase::parse(cons
 void eci::Lexer::TypeSection::parseSectionCurrent(etk::Vector<ememory::SharedPtr<eci::LexerNode>>& _data) {
 	etk::Vector<size_t> posList;
 	for (size_t iii=0; iii<_data.size(); ++iii) {
-		if (_data[iii] == nullptr) {
+		if (_data[iii] == null) {
 			ECI_TODO("remove null shared_ptr");
 			continue;
 		}
@@ -203,7 +203,7 @@ void eci::Lexer::TypeSection::parseSectionCurrent(etk::Vector<ememory::SharedPtr
 void eci::Lexer::TypeSection::parseSection(etk::Vector<ememory::SharedPtr<eci::LexerNode>>& _data) {
 	ECI_VERBOSE("parse section : " << getValue());
 	for (auto &it : _data) {
-		if (it == nullptr) {
+		if (it == null) {
 			continue;
 		}
 		if (it->isNodeContainer() == true) {

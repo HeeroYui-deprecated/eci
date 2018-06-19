@@ -38,7 +38,7 @@ eci::ParserCpp::ParserCpp() {
 	m_lexer.append(tokenCppContener, "\\b(class|namespace|struct|union|enum)\\b");
 	m_lexer.append(tokenCppTypeDef, "\\btypedef\\b");
 	m_lexer.append(tokenCppAuto, "\\bauto\\b");
-	m_lexer.append(tokenCppNullptr, "\\b(NULL|nullptr)\\b");
+	m_lexer.append(tokenCppNullptr, "\\b(NULL|null)\\b");
 	m_lexer.append(tokenCppSystemDefine, "\\b__(LINE|DATA|FILE|func|TIME|STDC)__\\b");
 	m_lexer.append(tokenCppNumericValue, "\\b(((0(x|X)[0-9a-fA-F]*)|(\\d+\\.?\\d*|\\.\\d+)((e|E)(\\+|\\-)?\\d+)?)(L|l|UL|ul|u|U|F|f)?)\\b");
 	m_lexer.append(tokenCppBoolean, "\\b(true|false)\\b");
@@ -63,7 +63,7 @@ static void printNode(const etk::String& _data, const etk::Vector<ememory::Share
 	for (auto &it : _nodes) {
 		if (it->isNodeContainer() == true) {
 			ememory::SharedPtr<eci::LexerNodeContainer> sec = ememory::dynamicPointerCast<eci::LexerNodeContainer>(it);
-			if (sec != nullptr) {
+			if (sec != null) {
 				ECI_INFO(offset << "  " << sec->getStartPos() << "->" << sec->getStopPos() << " container: " << sec->getType());
 				printNode(_data, sec->m_list, _level+1);
 			}

@@ -23,7 +23,7 @@ namespace eci {
 			                                                       const etk::String& _operatorName,
 			                                                       const ememory::SharedPtr<eci::Variable>& _obj) {
 				ECI_ERROR("call unknow operator : '" << _operatorName << "'");
-				return nullptr;
+				return null;
 			}
 			virtual etk::Vector<ememory::SharedPtr<eci::Variable>> callFunction(const ememory::SharedPtr<eci::Variable>& _this,
 			                                                                    const etk::String& _name,
@@ -34,21 +34,21 @@ namespace eci {
 			virtual ememory::SharedPtr<eci::Variable> getVariable(ememory::SharedPtr<eci::Variable> _this,
 			                                                   const etk::String& _name) {
 				ECI_ERROR("try get unknow Variable : '" << _name << "'");
-				return nullptr;
+				return null;
 			};
 			virtual ememory::SharedPtr<eci::Variable> create(const etk::Vector<ememory::SharedPtr<eci::Variable>>& _objList) {
-				return nullptr;
+				return null;
 			}
 			virtual void destroy(ememory::SharedPtr<eci::Variable>& _obj) {
-				if (_obj != nullptr) {
+				if (_obj != null) {
 					// TODO : mark as destroyed ...
 				}
 			}
 			virtual ememory::SharedPtr<eci::Variable> clone(const ememory::SharedPtr<eci::Variable>& _obj) {
-				return nullptr;
+				return null;
 			}
 			virtual ememory::SharedPtr<eci::Variable> cast(const ememory::SharedPtr<eci::Variable>& _obj, const eci::Type& _type) {
-				return nullptr;
+				return null;
 			}
 	};
 	class TypeNatif : public Type {
